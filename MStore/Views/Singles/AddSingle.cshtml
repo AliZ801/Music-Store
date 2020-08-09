@@ -1,0 +1,130 @@
+﻿@model MStore.Models.ViewModel.MSViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var title = "Add New Single";
+
+    if (Model.Singles.Id != 0)
+    {
+        ViewData["Title"] = "Update Single";
+    }
+    else
+    {
+        ViewData["Title"] = "Add New Single";
+    }
+}
+
+<form method="post" asp-action="AddSingle" enctype="multipart/form-data" class="cus-border rounded text-white">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @if (Model.Singles.Id != 0)
+    {
+        <input type="hidden" asp-for="@Model.Singles.Id" />
+        title = "Update Single";
+    }
+
+    <div class="row justify-content-center">
+        <h3 class="pt-2">@title</h3>
+    </div>
+
+    <hr class="w-75" />
+
+    <div class="row">
+        <div class="col-8">
+            <div class="row form-group">
+                <div class="col-3">
+                    <label asp-for="@Model.Singles.Title"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="@Model.Singles.Title" class="form-control" />
+                    <span asp-validation-for="@Model.Singles.Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-3">
+                    <label asp-for="@Model.Singles.Artist"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="@Model.Singles.Artist" class="form-control" />
+                    <span asp-validation-for="@Model.Singles.Artist" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-3">
+                    <label>Genre</label>
+                </div>
+                <div class="col-9">
+                    @Html.DropDownListFor(i => i.Singles.GenreId, Model.GenresList, "Select Genre", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-3">
+                    <label asp-for="@Model.Singles.ImageUrl"></label>
+                </div>
+                <div class="col-9">
+                    <input type="file" id="uploadBox" name="files" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-3">
+                    <label asp-for="@Model.Singles.ReleasedDate"></label>
+                </div>
+                <div class="col-9">
+                    <input type="date" asp-for="@Model.Singles.ReleasedDate" class="form-control" />
+                    <span asp-validation-for="@Model.Singles.ReleasedDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+
+                @if (Model.Singles.Id != 0)
+                {
+                    <partial name="_EditAndBackBtn" model="@Model.Singles.Id" />
+                }
+                else
+                {
+                    <partial name="_CreateAndBackBtn" />
+                }
+
+            </div>
+        </div>
+        <div class="col-4">
+
+            @if (Model.Singles.Id != 0)
+            {
+                <img src="@Model.Singles.ImageUrl" class="img-thumbnail" />
+            }
+
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <style>
+        .cus-border {
+            border: 2px solid green;
+        }
+
+        hr {
+            border-color: green;
+        }
+
+        .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        input[type=text] {
+            color: green;
+        }
+
+            input[type=text]:focus {
+                color: white;
+            }
+    </style>
+}

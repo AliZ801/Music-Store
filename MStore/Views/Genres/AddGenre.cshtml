@@ -1,0 +1,73 @@
+﻿@model MStore.Models.ViewModel.MSViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var title = "Add New Genre";
+
+    if(Model.Genres.Id != 0)
+    {
+        ViewData["Title"] = "Update Genre";
+    }
+    else
+    {
+        ViewData["Title"] = "Add New Genre";
+    }
+}
+
+<div class="container text-success">
+    <div class="col-5 m-0 m-auto cus-border rounded">
+        <form method="post" asp-action="AddGenre" class="col-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if(Model.Genres.Id != 0)
+            {
+                <input type="hidden" asp-for="@Model.Genres.Id" />
+                title = "Update Genre";
+            }
+
+            <div class="row justify-content-center">
+                <h3 class="pt-2">@title</h3>
+            </div>
+
+            <hr class="w-75" />
+
+            <div class="row form-group">
+                <label asp-for="@Model.Genres.Genre"></label>
+                <input asp-for="@Model.Genres.Genre" class="form-control" />
+                <span asp-validation-for="@Model.Genres.Genre" class="text-danger"></span>
+            </div>
+
+            <div class="row form-group">
+                @if (Model.Genres.Id != 0)
+                {
+                    <partial name="_EditAndBackBtn" model="@Model.Genres.Id" />
+                }
+                else
+                {
+                    <partial name="_CreateAndBackBtn" />
+                }
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .cus-border {
+            border: 2px solid green;
+        }
+
+        hr{
+            border-color: white;
+        }
+
+        input[type=text]{
+            color: green;
+        }
+
+            input[type=text]:focus {
+                color: white;
+            }
+    </style>
+}

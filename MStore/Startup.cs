@@ -12,6 +12,8 @@ using MStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MStore.Repository.IRepository;
+using MStore.Repository;
 
 namespace MStore
 {
@@ -32,6 +34,7 @@ namespace MStore
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddScoped<IUnitofWork, UnitofWork>();
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }

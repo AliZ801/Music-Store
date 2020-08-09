@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MStore.Models;
 
 namespace MStore.Data
 {
@@ -12,5 +13,9 @@ namespace MStore.Data
             : base(options)
         {
         }
+
+        public DbSet<Genres> Genres { get; set; }
+
+        public DbSet<Singles> Singles { get; set; }
     }
 }
